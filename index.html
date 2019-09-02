@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div >
+           
+            <br>
+            <br>
+            <p></p>
+            <br>
+            <br>
+
+
+    </div>
+    
+    
+<script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '1139153696273726',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v4.0'
+          });
+            
+          FB.AppEvents.logPageView();   
+
+          
+          FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+            
+        };
+      
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "https://connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+          
+        var p1= document.querySelector('p');
+        function statusChangeCallback(data){
+            if (data.status == 'connected')
+            p1.textContent='connected';
+            
+            else if(data.status == 'not_authorized')
+            p1.textContent='not_authorized';
+
+            else if(data.status == 'unknown')
+            p1.textContent='unknown';
+        }
+
+        function checkLoginState(){
+            FB.getLoginStatus(function(response) {
+               
+                if(response.status == 'connected'){
+                  p1.textContent = 'Connected' + response.authResponse.accessToken ;
+                  console.log(response.authResponse);
+                }
+
+                else
+                  p1.textContent = 'Not Connected'  
+                
+            });
+
+        }
+
+        function myFunction(){
+            FB.logout(function(response) {
+                   p1.textContent= "Successfully logged out!!";
+            });
+        }    
+
+      </script>
+  
+  <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+  </fb:login-button>
+  <br>
+  <br>
+  <button onclick="myFunction()">  Logout  </button>
+  <br>
+  <br>
+</body>
+</html>
